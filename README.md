@@ -4,7 +4,7 @@
 "Обробка списків з використанням базових функцій"<br/>
 дисципліни "Вступ до функціонального програмування"
 </p>
-<p align="right">Студент: Бойко Дмитро Павлович КВ-11<p>
+<p align="right">Студент: Бондаренко Владислав Олексийович КВ-13<p>
 <p align="right">Рік: 2024<p>
  
 ## Загальне завдання
@@ -21,56 +21,7 @@
    6. Використайте предикати ATOM та LISTP на різних елементах списку (по 2-3 приклади для кожної функції).
    7. Використайте на елементах списку 2-3 інших предикати з розглянутих у розділі 4 навчального посібника.
    8. Об'єднайте створений список з одним із його непустих підсписків. Для цього використайте функцію APPEND.
-
-```
-;create list
-[1]> (setq first-list (cons 'A (list 123 (list 'B 4) () "hello")))
-(A 123 (B 4) NIL "hello")
-
-;car example
-[2]> (car first-list)
-A
-
-;cdr example
-[3]> (cdr first-list)
-(123 (B 4) NIL "hello")
-
-;third example
-[4]> (third first-list)
-(B 4)
-
-;last example
-[5]> (car (last first-list))
-"hello"
-
-;atom examples
-[6]> (atom (car first-list))
-T
-[7]> (atom (third first-list))
-NIL
-[8]> (atom (car (last first-list)))
-T
-
-;listp examples
-[9]> (listp (third first-list))
-T
-[12]> (listp (car first-list))
-NIL
-[13]> (listp (cdr (third first-list)))
-T
-
-;other predicates
-[14]> (+ 10 (second first-list))
-133
-[15]> (numberp (car first-list))
-NIL
-[16]> (eql (second first-list) 123)
-T
-
-;append example
-[17]> (append first-list (third first-list))
-(A 123 (B 4) NIL "hello" B 4)
-```
+   9. 
 ## Варіант 2
 ![image](https://github.com/user-attachments/assets/831e595c-8c9f-4e00-a2f4-ee325b80e887)
 
@@ -79,12 +30,52 @@ T
 </p>
 
 ```
+;; Пункт 1: Створюємо список
+(setq my-list (list 'X 42 (list 'Y 7) '() "world"))
 
-[1]> (defvar second-list nil)
-SECOND-LIST
-[2]> (defvar mini-list nil)
-MINI-LIST
-[3]> (setq mini-list '(A 2 1) second-list (list mini-list 'B (cdr mini-list) 'C))
-((A 2 1) B (2 1) C)
+;; Пункт 2: Отримання голови списку
+(car my-list) ;; X
+
+;; Пункт 3: Отримання хвоста списку
+(cdr my-list) ;; (42 (Y 7) NIL "world")
+
+;; Пункт 4: Отримання третього елемента списку
+(third my-list) ;; (Y 7)
+
+;; Пункт 5: Отримання останнього елемента списку
+(car (last my-list)) ;; "world"
+
+;; Пункт 6: Використання предикатів ATOM і LISTP
+(atom (car my-list)) ;; T, X — атом
+(atom (third my-list)) ;; NIL, (Y 7) — список
+(atom (car (last my-list))) ;; T, "world" — атом
+(listp (third my-list)) ;; T, (Y 7) — список
+(listp (car my-list)) ;; NIL, X — не список
+(listp (cdr (third my-list))) ;; T, список (7)
+
+;; Пункт 7: Використання інших предикатів
+(+ 10 (second my-list)) ;; 52, бо 42 — число
+(numberp (second my-list)) ;; T, 42 — це число
+(eql (second my-list) 42) ;; T, значення збігається
+
+;; Пункт 8: Об'єднання списку з його непустим підсписком
+(append my-list (third my-list))
+;; Результат: (X 42 (Y 7) NIL "world" Y 7)
+
+;; Додаткове завдання
+;; Створення списку із використанням обмеженої кількості форм конструювання
+(let ((sublist (list 1 2)))
+  (setq structured-list 
+        (list (list 'A sublist)
+              'B
+              (cdr sublist)
+              'C)))
+;; Результат: ((A (1 2)) B (2) C)
+
+;; Перевіряємо структуру
+(car structured-list) ;; (A (1 2))
+(third structured-list) ;; (2)
+(last structured-list) ;; (C)
+
 ```
 
